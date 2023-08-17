@@ -11,7 +11,7 @@ const ItemSchema = new Schema({
 });
 
 ItemSchema.virtual("url").get(function () {
-  return `/items/${this._id}`;
+  return `/inventory/items/${this._id}`;
 });
 
 // export the model

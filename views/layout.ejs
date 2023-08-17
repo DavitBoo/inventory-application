@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    
+</head>
+<body>
+  <div class="">
+    <div class="">
+      <div class="">
+        <ul class="sidebar-nav">
+            <li>
+              <a href="/items">Items</a>
+            </li>
+            <li>
+              <a href="/categories">Categories</a>
+            </li>
+           
+            <li>
+              <hr>
+            </li>
+            <li>
+              <a href="/items/create">Create new item</a>
+            </li>
+            <li>
+              <a href="/categories/create">Create new category</a>
+            </li>
+          </ul>
+      </div>
+      <div class="">
+        <%- include(`${contentFile}`) %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
