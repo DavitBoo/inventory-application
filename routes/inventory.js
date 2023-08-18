@@ -8,3 +8,6 @@ const item_controller = require("../controllers/itemController.js");
 router.get("/", item_controller.index);
 
 module.exports = router;
+
+// GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
+router.get("/items/create", item_controller.item_create_get);

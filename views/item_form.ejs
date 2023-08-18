@@ -1,0 +1,31 @@
+<h1><%= title %></h1>
+
+<form method="POST" action="">
+    <div class="">
+        <label for="item-name">Item name:</label>
+        <input id="item-name" class="" type="text" placeholder="Item name" name="item-name" required="true" />
+    </div>
+
+    <div class="">
+        <label for="description">Description:</label>
+        <textarea id="description" class="form-control" type="textarea" placeholder="Description" name="description" required="true"></textarea>
+    </div>
+
+    <div class="">
+        <label for="price">Price:</label>
+        <input id="price" class="form-control" type="number" placeholder="Price (ej: 19.95)" name="price" required="true" />
+    </div>
+
+    <div class="">
+        <label for="number-int-stock">Items in stock:</label>
+        <input id="number-int-stock" class="form-control" type="number" placeholder="How many are in the stock?" name="number-int-stock" required="true" />
+      </div>
+      <div class="form-group">
+        <label>Category:</label>
+        <select id="category" class="form-control" type="select" placeholder="Select book" name="category" required="true">
+            <option></option>
+        </select>
+    </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+
+</form>
