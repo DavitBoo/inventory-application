@@ -1,0 +1,13 @@
+<h1><%= title %></h1>
+    
+<ul>
+  <% if (category_list.length > 0) { %>
+    <% category_list.forEach(function(category) { %>
+      <li>
+        <a href="<%= category.url %>"><%= category.name %></a>
+      </li>
+    <% }); %>
+  <% } else { %>
+    <li>There are no categories.</li>
+  <% } %>
+</ul>
