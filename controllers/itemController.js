@@ -18,16 +18,22 @@ exports.index = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Display list of all items.
+// Display list of all items. --------------------------------------------------
 exports.item_list = asyncHandler(async (req, res, next) => {
-  const allItems = await Item.find({}, "name").sort({ title: 1 }).exec();
+  const allItems = await Item.find({}, "name category stock").sort({ title: 1 }).populate("category").exec();
 
-  res.render("item_list", { title: "Item List", item_list: allItems });
+  console.log(allItems);
+
+  res.render("layout", {
+    contentFile: "item_list",
+    title: "Item List",
+    item_list: allItems,
+  });
 });
 
-// Display item create form on GET.
+// Display item create form on GET. --------------------------------------------
 exports.item_create_get = asyncHandler(async (req, res, next) => {
-  // Get all categories, which we can use for adding to our book.
+  // Get all categories, which we can use for adding to our item.
   const allCategories = await Category.find().exec();
 
   res.render("layout", {
@@ -56,9 +62,9 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Handle book create on POST.
+// Handle item create on POST.
 exports.item_create_post = [
-  // Convert the genre to an array.
+  // Convert the category to an array.
   (req, res, next) => {
     if (!(req.body.category instanceof Array)) {
       if (typeof req.body.category === "undefined") req.body.category = [];
@@ -68,49 +74,44 @@ exports.item_create_post = [
   },
 
   // Validate and sanitize fields.
-  body("title", "Title must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("author", "Author must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("summary", "Summary must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("isbn", "ISBN must not be empty").trim().isLength({ min: 1 }).escape(),
-  body("genre.*").escape(),
+  body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("price", "Price must not be empty and it must be a number").trim().isLength({ min: 1 }).isNumeric().escape(),
+  body("stock", "Items in stock must not be empty and it must be a number")
+    .trim()
+    .isLength({ min: 1 })
+    .isNumeric()
+    .escape(),
+  body("category.*").escape(),
   // Process request after validation and sanitization.
 
   asyncHandler(async (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped and trimmed data.
-    const book = new Book({
-      title: req.body.title,
-      author: req.body.author,
-      summary: req.body.summary,
-      isbn: req.body.isbn,
-      genre: req.body.genre,
+    // Create a Item object with escaped and trimmed data.
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      stock: req.body.stock,
+      category: req.body.category,
     });
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
 
-      // Get all authors and genres for form.
-      const [allAuthors, allGenres] = await Promise.all([Author.find().exec(), Genre.find().exec()]);
-
-      // Mark our selected genres as checked.
-      for (const genre of allGenres) {
-        if (book.genre.indexOf(genre._id) > -1) {
-          genre.checked = "true";
-        }
-      }
-      res.render("book_form", {
-        title: "Create Book",
-        authors: allAuthors,
-        genres: allGenres,
-        book: book,
+      res.render("layout", {
+        contentFile: "item-form",
+        title: "Create Item",
+        categories: allCategories,
+        item: item,
         errors: errors.array(),
       });
     } else {
-      // Data from form is valid. Save book.
-      await book.save();
-      res.redirect(book.url);
+      // Data from form is valid. Save item.
+      await item.save();
+      res.redirect(item.url);
     }
   }),
 ];
