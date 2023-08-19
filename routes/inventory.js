@@ -21,5 +21,9 @@ router.post("/items/create", item_controller.item_create_post);
 router.get("/items", item_controller.item_list);
 
 // --- CATEGORIES ---
+
+// GET request for one Category.
+router.get("/categories/:id", category_controller.category_detail);
+
 // GET request for list of all Categories.
 router.get("/categories", category_controller.category_list);
