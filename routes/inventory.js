@@ -17,6 +17,9 @@ router.get("/items/create", item_controller.item_create_get);
 // POST request for creating Book.
 router.post("/items/create", item_controller.item_create_post);
 
+// GET request for one Book.
+router.get("/items/:id", item_controller.item_detail);
+
 // GET request for list of all Book items.
 router.get("/items", item_controller.item_list);
 

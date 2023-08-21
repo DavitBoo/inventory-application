@@ -31,6 +31,25 @@ exports.item_list = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Display detail page for a specific book.
+exports.item_detail = asyncHandler(async (req, res, next) => {
+  // Get details of books, book instances for specific book
+  const item = await Item.findById(req.params.id).populate("category").exec();
+
+  if (item === null) {
+    // No results.
+    const err = new Error("Item not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("layout", {
+    contentFile: "item_detail",
+    title: item.name,
+    item: item,
+  });
+});
+
 // Display item create form on GET. --------------------------------------------
 exports.item_create_get = asyncHandler(async (req, res, next) => {
   // Get all categories, which we can use for adding to our item.
@@ -56,7 +75,7 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
   }
 
   res.render("layout", {
-    contentFile: "item-detail",
+    contentFile: "item_detail",
     title: item.name,
     item: item,
   });
