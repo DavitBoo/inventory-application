@@ -50,18 +50,6 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Display item create form on GET. --------------------------------------------
-exports.item_create_get = asyncHandler(async (req, res, next) => {
-  // Get all categories, which we can use for adding to our item.
-  const allCategories = await Category.find().exec();
-
-  res.render("layout", {
-    contentFile: "item_form",
-    title: "Create Item",
-    categories: allCategories,
-  });
-});
-
 // Display detail page for a specific item.
 exports.item_detail = asyncHandler(async (req, res, next) => {
   // Get details of items, item instances for specific item
@@ -81,6 +69,17 @@ exports.item_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Display item create form on GET. --------------------------------------------
+exports.item_create_get = asyncHandler(async (req, res, next) => {
+  // Get all categories, which we can use for adding to our item.
+  const allCategories = await Category.find().exec();
+
+  res.render("layout", {
+    contentFile: "item_form",
+    title: "Create Item",
+    categories: allCategories,
+  });
+});
 // Handle item create on POST.
 exports.item_create_post = [
   // Convert the category to an array.
@@ -119,9 +118,11 @@ exports.item_create_post = [
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
+      console.log(errors);
+      allCategories = await Category.find().exec();
 
       res.render("layout", {
-        contentFile: "item-form",
+        contentFile: "item_form",
         title: "Create Item",
         categories: allCategories,
         item: item,
