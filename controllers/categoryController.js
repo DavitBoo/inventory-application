@@ -35,3 +35,54 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
     category_items: itemsInCategory,
   });
 });
+
+// Display Genre create form on GET.
+exports.category_create_get = (req, res, next) => {
+  res.render("layout", {
+    contentFile: "category_form",
+    title: "Create Category",
+  });
+};
+
+// Handle Genre create on POST.
+exports.category_create_post = [
+  // Validate and sanitize the name field.
+  body("name", "Category name must contain at least 3 characters").trim().isLength({ min: 3 }).escape(),
+  body("description", "Category description must contain at least 3 characters").trim().isLength({ min: 3 }).escape(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a category object with escaped and trimmed data, based on the model.
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description, // Agregar esta línea
+    });
+    description: req.body.description;
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render the form again with sanitized values/error messages.
+      res.render("layout", {
+        contentFile: "category_form",
+        title: "Create Category",
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid.
+      // Check if Genre with same name already exists.
+      const categoryExists = await Category.findOne({ name: req.body.name }).exec();
+      if (categoryExists) {
+        // Genre exists, redirect to its detail page.
+        res.redirect(categoryExists.url);
+      } else {
+        await category.save();
+        // New genre saved. Redirect to genre detail page.
+        res.redirect(category.url);
+      }
+    }
+  }),
+];
