@@ -36,6 +36,27 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
+// Display Genre delete form on GET.
+exports.category_delete_get = asyncHandler(async (req, res, next) => {
+  // Get details of category and all their items (in parallel)
+  const [category, allItemssByCategory] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Category.find({ category: req.params.id }, "name description").exec(),
+  ]);
+
+  if (category === null) {
+    // No results.
+    res.redirect("/inventory/category");
+  }
+
+  res.render("layout", {
+    contentFile: "category_delete",
+    title: "Delete Category",
+    category: category,
+    category_items: allItemssByCategory,
+  });
+});
+
 // Display Genre create form on GET.
 exports.category_create_get = (req, res, next) => {
   res.render("layout", {
