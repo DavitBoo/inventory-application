@@ -22,8 +22,6 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.item_list = asyncHandler(async (req, res, next) => {
   const allItems = await Item.find({}, "name category stock").sort({ title: 1 }).populate("category").exec();
 
-  console.log(allItems);
-
   res.render("layout", {
     contentFile: "item_list",
     title: "Item List",

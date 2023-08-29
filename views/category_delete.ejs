@@ -2,6 +2,20 @@
 <div>
     <h2>Items</h2>
     <dl>
-        <!-- I have to add the for that takes all the items in the category -->
+        <% if (category_items.length > 0) { %>
+            <p>Delete the following items before try to delete this category.</p>
+            <% category_items.forEach(function(item) { %>
+            <h2>Items</h2>
+              <dt>
+                <a href="<%= item.url %>"><%= item.name %></a>
+              </dt>
+            <% }); %>
+          <% } else { %>
+            <p>Do you really want to delete this Category?</p>
+            <form method="POST">
+                <input id="categoryid" type="hidden" name="categoryid" required value="<%= category._id %>">
+                <button type="submit">Delete</button>
+            </form>
+          <% } %>
     </dl>
 </div>

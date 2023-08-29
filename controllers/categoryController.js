@@ -15,7 +15,6 @@ exports.category_list = asyncHandler(async (req, res, next) => {
 });
 
 exports.category_detail = asyncHandler(async (req, res, next) => {
-  console.log("heyyy");
   const [category, itemsInCategory] = await Promise.all([
     Category.findById(req.params.id).exec(),
     Item.find({ category: req.params.id }, "name stock").exec(),
@@ -39,22 +38,46 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
 // Display Genre delete form on GET.
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
   // Get details of category and all their items (in parallel)
-  const [category, allItemssByCategory] = await Promise.all([
+  const [category, allItemsByCategory] = await Promise.all([
     Category.findById(req.params.id).exec(),
-    Category.find({ category: req.params.id }, "name description").exec(),
+    Item.find({ category: req.params.id }, "name description").exec(),
   ]);
 
   if (category === null) {
     // No results.
-    res.redirect("/inventory/category");
+    res.redirect("/inventory/categories");
   }
-
   res.render("layout", {
     contentFile: "category_delete",
     title: "Delete Category",
     category: category,
-    category_items: allItemssByCategory,
+    category_items: allItemsByCategory,
   });
+});
+
+// Handle Category delete on POST.
+exports.category_delete_post = asyncHandler(async (req, res, next) => {
+  // Get details of category and all their items (in parallel)
+  const [category, allItemsByCategory] = await Promise.all([
+    Category.findById(req.params.id).exec(),
+    Item.find({ category: req.params.id }, "name description").exec(),
+  ]);
+
+  if (allItemsByCategory.length > 0) {
+    // Category has items. Render in same way as for GET route.
+    res.render("layout", {
+      contentFile: "category_delete",
+      title: "Delete Category",
+      category: category,
+      category_items: allItemsByCategory,
+    });
+    return;
+  } else {
+    // Genre has no books. Delete object and redirect to the list of authors.
+    await Category.findByIdAndRemove(req.body.categoryid);
+    console.log(req.body.categoryid);
+    res.redirect("/inventory/categories");
+  }
 });
 
 // Display Genre create form on GET.
@@ -81,7 +104,7 @@ exports.category_create_post = [
       name: req.body.name,
       description: req.body.description, // Agregar esta línea
     });
-    description: req.body.description;
+    // description: req.body.description;
 
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values/error messages.
