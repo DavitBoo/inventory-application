@@ -17,6 +17,12 @@ router.get("/items/create", item_controller.item_create_get);
 // POST request for creating Book.
 router.post("/items/create", item_controller.item_create_post);
 
+// GET request to delete Book.
+router.get("/items/:id/delete", item_controller.item_delete_get);
+
+// POST request to delete Book.
+router.post("/items/:id/delete", item_controller.item_delete_post);
+
 // GET request for one Book.
 router.get("/items/:id", item_controller.item_detail);
 

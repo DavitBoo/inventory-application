@@ -133,3 +133,30 @@ exports.item_create_post = [
     }
   }),
 ];
+
+// Display book delete form on GET.
+exports.item_delete_get = asyncHandler(async (req, res, next) => {
+  // Get details of the book
+  const item = await Item.findById(req.params.id).exec();
+
+  if (item === null) {
+    // No results.
+    res.redirect("/inventory/items");
+  }
+
+  res.render("layout", {
+    contentFile: "item_delete",
+    title: "Delete Item",
+    item: item,
+  });
+});
+
+// Handle item delete on POST.
+exports.item_delete_post = asyncHandler(async (req, res, next) => {
+  // Get details of books
+  const item = await Item.findById(req.params.id).exec();
+
+  // Book has no bookInstances. Delete object and redirect to the list of authors.
+  await Item.findByIdAndRemove(req.body.itemid);
+  res.redirect("/inventory/items");
+});
