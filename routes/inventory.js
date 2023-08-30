@@ -23,6 +23,12 @@ router.get("/items/:id/delete", item_controller.item_delete_get);
 // POST request to delete Book.
 router.post("/items/:id/delete", item_controller.item_delete_post);
 
+// GET request to update Book.
+router.get("/items/:id/update", item_controller.item_update_get);
+
+// POST request to update Book.
+// router.post("/items/:id/update", item_controller.item_update_post);
+
 // GET request for one Book.
 router.get("/items/:id", item_controller.item_detail);
 

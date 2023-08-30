@@ -160,3 +160,26 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
   await Item.findByIdAndRemove(req.body.itemid);
   res.redirect("/inventory/items");
 });
+
+// Display book update form on GET.
+exports.item_update_get = asyncHandler(async (req, res, next) => {
+  // Get book, authors and genres for form.
+  const [item, allCategories] = await Promise.all([
+    Item.findById(req.params.id).populate("category").exec(),
+    Category.find().exec(),
+  ]);
+
+  if (item === null) {
+    // No results.
+    const err = new Error("Item not found");
+    err.status = 404;
+    return next(err);
+  }
+  console.log(allCategories);
+  res.render("layout", {
+    contentFile: "item_form",
+    title: "Update Item",
+    categories: allCategories,
+    item: item,
+  });
+});
