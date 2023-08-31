@@ -184,3 +184,66 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
     item: item,
   });
 });
+
+// Handle item update on POST.
+exports.item_update_post = [
+  // Convert the categroy to an array.
+  (req, res, next) => {
+    if (!(req.body.category instanceof Array)) {
+      if (typeof req.body.category === "undefined") {
+        req.body.category = [];
+      } else {
+        req.body.category = new Array(req.body.category);
+      }
+    }
+    next();
+  },
+
+  // Validate and sanitize fields.
+  body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("price", "Price must not be empty and it must be a number").trim().isLength({ min: 1 }).isNumeric().escape(),
+  body("stock", "Items in stock must not be empty and it must be a number")
+    .trim()
+    .isLength({ min: 1 })
+    .isNumeric()
+    .escape(),
+  body("category.*").escape(),
+
+  // Process request after validation and sanitization.
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    // Create a Book object with escaped/trimmed data and old id.
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      stock: req.body.stock,
+      category: typeof req.body.category === "undefined" ? [] : req.body.category,
+      _id: req.params.id, // This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      // There are errors. Render form again with sanitized values/error messages.
+
+      // Get all categories for form
+      const allCategories = await Category.find().exec();
+
+      res.render("layout", {
+        contentFile: "item_form",
+        title: "Update Item",
+        categories: allCategories,
+        item: item,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data from form is valid. Update the record.
+      const updatedItem = await Item.findByIdAndUpdate(req.params.id, item, {});
+      // Redirect to book detail page.
+      res.redirect(updatedItem.url);
+    }
+  }),
+];
