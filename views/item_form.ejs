@@ -25,9 +25,8 @@
         <select id="category" class="form-control" type="select" placeholder="Select book" name="category" required="true">
             <% for (let i = 0; i < categories.length; i++) { %>
                 <% let cat = categories[i]; %>
-                    <option value="<%= cat._id %>" <%= (cat._id === item.category[0]._id.toString()) ? 'selected' : '' %> >
-                <%= cat.name %>  <%= item.category[0]._id %>
-                <!-- aquí algo va mal -->
+                    <option value="<%= cat._id %>" <%= (cat._id.toString() === item.category[0]._id.toString()) ? 'selected' : '' %> >
+                <%= cat.name %>
                 </option>
             <% } %>
         </select>

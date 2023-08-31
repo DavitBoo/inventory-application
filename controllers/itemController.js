@@ -175,7 +175,8 @@ exports.item_update_get = asyncHandler(async (req, res, next) => {
     err.status = 404;
     return next(err);
   }
-  console.log(allCategories);
+  console.log(allCategories[0]._id);
+  console.log(item.category[0]._id);
   res.render("layout", {
     contentFile: "item_form",
     title: "Update Item",
