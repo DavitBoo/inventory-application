@@ -1,11 +1,11 @@
 <form method='POST' action=''>
     <div class='form-group'>
         <label for='name'>Category:</label>
-        <input id='name' class='form-control' type='text' placeholder='Introduce a category name...' name='name' required="true" value="<%= (undefined===category ? '' : category.name) %>" >
+        <input id='name' class='form-control' type='text' placeholder='Introduce a category name...' name='name' required="true" value="<%= (null===category ? '' : category.name) %>" >
     </div>
     <div class='form-group'>
         <label for='description'>Description:</label>
-        <textArea id='description' class='' placeholder='Introduce a category descritpion...' name='description' required='true'>"<%= (undefined===category ? '' : category.description) %></textArea>
+        <textArea id='description' class='' placeholder='Introduce a category descritpion...' name='description' required='true'><%= (null===category ? '' : category.description) %></textArea>
     </div>
     <button class='btn btn-primary' type='submit'>Submit</button>
 </form>

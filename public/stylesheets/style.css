@@ -1,8 +1,28 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  position: relative;
+}
+
+#bg {
+  position: fixed;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url(../images/guitar-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -2;
+}
+
+#bg::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-color: rgba(210, 210, 210, 0.864);
+  z-index: -1;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }

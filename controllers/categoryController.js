@@ -80,11 +80,12 @@ exports.category_delete_post = asyncHandler(async (req, res, next) => {
   }
 });
 
-// Display Genre create form on GET.
+// Display Category create form on GET.
 exports.category_create_get = (req, res, next) => {
   res.render("layout", {
     contentFile: "category_form",
     title: "Create Category",
+    category: null,
   });
 };
 

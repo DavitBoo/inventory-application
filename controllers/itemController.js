@@ -76,6 +76,7 @@ exports.item_create_get = asyncHandler(async (req, res, next) => {
     contentFile: "item_form",
     title: "Create Item",
     categories: allCategories,
+    item: null,
   });
 });
 // Handle item create on POST.
@@ -92,7 +93,7 @@ exports.item_create_post = [
   // Validate and sanitize fields.
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("description", "Description must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("price", "Price must not be empty and it must be a number").trim().isLength({ min: 1 }).isNumeric().escape(),
+  body("price", "Price must not be empty and it must be a number").trim().isLength({ min: 1 }).escape(),
   body("stock", "Items in stock must not be empty and it must be a number")
     .trim()
     .isLength({ min: 1 })
@@ -202,7 +203,7 @@ exports.item_update_post = [
   // Validate and sanitize fields.
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("description", "Description must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("price", "Price must not be empty and it must be a number").trim().isLength({ min: 1 }).isNumeric().escape(),
+  body("price", "Price must not be empty and it must be a number").trim().isLength({ min: 1 }).escape(),
   body("stock", "Items in stock must not be empty and it must be a number")
     .trim()
     .isLength({ min: 1 })
