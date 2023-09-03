@@ -1,6 +1,6 @@
 <h1><%= title %></h1>
  
-<form method="POST" action=""  enctype="multipart/form-data"> 
+<form method="POST" action="" > 
     <div class="">
         <label for="name">Item name:</label>
         <input id="name" class="" type="text" placeholder="Item name" name="name" required="true" value="<%= (null===item ? '' : item.name) %>">
@@ -25,16 +25,14 @@
         <select id="category" class="form-control" type="select" placeholder="Select book" name="category" required="true">
             <% for (let i = 0; i < categories.length; i++) { %>
                 <% let cat = categories[i]; %>
-                    <option value="<%= cat._id %>" <%= (item && cat._id.toString() === item.category[0]._id.toString()) ? 'selected' : '' %> >
-                <%= cat.name %>
+                <option value="<%= cat._id %>" <%= (item && cat._id.toString() === item.category[0]._id.toString()) ? 'selected' : '' %>" >
+                    <%= cat.name %>
                 </option>
             <% } %>
         </select>
      
     </div>
-    <div>
-        <input type="file" name="avatar" />
-    </div>
+
 
       <button class="btn btn-primary" type="submit">Submit</button>
 

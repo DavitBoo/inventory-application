@@ -75,7 +75,6 @@ exports.category_delete_post = asyncHandler(async (req, res, next) => {
   } else {
     // Genre has no books. Delete object and redirect to the list of authors.
     await Category.findByIdAndRemove(req.body.categoryid);
-    console.log(req.body.categoryid);
     res.redirect("/inventory/categories");
   }
 });
