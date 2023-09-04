@@ -100,6 +100,7 @@ exports.item_create_post = [
     .isNumeric()
     .escape(),
   body("category.*").escape(),
+  body("image").escape(),
   // Process request after validation and sanitization.
 
   asyncHandler(async (req, res, next) => {
@@ -113,6 +114,7 @@ exports.item_create_post = [
       price: req.body.price,
       stock: req.body.stock,
       category: req.body.category,
+      image: req.file.filename,
     });
 
     if (!errors.isEmpty()) {
@@ -209,6 +211,7 @@ exports.item_update_post = [
     .isNumeric()
     .escape(),
   body("category.*").escape(),
+  body("image").escape(),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {

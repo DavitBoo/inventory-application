@@ -1,6 +1,6 @@
 <h1><%= title %></h1>
  
-<form method="POST" action="" > 
+<form method="POST" action=""  enctype="multipart/form-data"> 
     <div class="">
         <label for="name">Item name:</label>
         <input id="name" class="" type="text" placeholder="Item name" name="name" required="true" value="<%= (null===item ? '' : item.name) %>">
@@ -33,6 +33,9 @@
      
     </div>
 
+    <div>
+        <input type="file" name="avatar"/>
+    </div>
 
       <button class="btn btn-primary" type="submit">Submit</button>
 
