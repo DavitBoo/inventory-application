@@ -1,21 +1,20 @@
-<h1>Category: <%= category.name %></h1>
-<div>
-    <h2>Items</h2>
-    <dl>
+<h1 class="mt-4 display-4 text-primary">Category: <%= category.name %></h1>
+<div class="mt-4">
+    <ul class="list-group">
         <% if (category_items.length > 0) { %>
-            <p>Delete the following items before try to delete this category.</p>
+            <p class="alert alert-warning">Delete the following items before try to delete this category.</p>
+            <h2 class="h4">Items</h2>
             <% category_items.forEach(function(item) { %>
-            <h2>Items</h2>
-              <dt>
-                <a href="<%= item.url %>"><%= item.name %></a>
-              </dt>
+              <li class="list-group-item">
+                <a class="text-success" href="<%= item.url %>"><%= item.name %></a>
+              </li>
             <% }); %>
           <% } else { %>
             <p>Do you really want to delete this Category?</p>
             <form method="POST">
                 <input id="categoryid" type="hidden" name="categoryid" required value="<%= category._id %>">
-                <button type="submit">Delete</button>
+                <button class="btn btn-danger" type="submit">Delete</button>
             </form>
           <% } %>
-    </dl>
+        </ul>
 </div>

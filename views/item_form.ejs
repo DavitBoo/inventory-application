@@ -1,27 +1,27 @@
-<h1><%= title %></h1>
+<h1 class="mt-4"><%= title %></h1>
  
-<form method="POST" action=""  enctype="multipart/form-data"> 
+<form class="mt-4" method="POST" action=""  enctype="multipart/form-data"> 
     <div class="">
-        <label for="name">Item name:</label>
+        <label class="form-label" for="name">Item name:</label>
         <input id="name" class="" type="text" placeholder="Item name" name="name" required="true" value="<%= (null===item ? '' : item.name) %>">
     </div>
 
     <div class="">
-        <label for="description">Description:</label>
+        <label class="form-label" for="description">Description:</label>
         <textarea id="description" class="form-control" type="textarea" placeholder="Description" name="description" required="true"><%= null === item ? '' : item.description %></textarea>
     </div>
 
     <div class="">
-        <label for="price">Price:</label>
+        <label class="form-label" for="price">Price:</label>
         <input id="price" class="form-control" type="text" placeholder="Price (ej: 19.95)" name="price" required="true" value="<%= (null===item ? '' : item.price) %>"/>
     </div>
 
     <div class="">
-        <label for="number-int-stock">Items in stock:</label>
+        <label class="form-label" for="number-int-stock">Items in stock:</label>
         <input id="number-int-stock" class="form-control" type="number" placeholder="How many are in the stock?" name="stock" required="true" value="<%= (null===item ? '' : item.stock) %>"/>
       </div>
       <div class="form-group">
-        <label>Category:</label>
+        <label class="form-label">Category:</label>
         <select id="category" class="form-control" type="select" placeholder="Select book" name="category" required="true">
             <% for (let i = 0; i < categories.length; i++) { %>
                 <% let cat = categories[i]; %>
@@ -33,7 +33,8 @@
      
     </div>
 
-    <div>
+    <div class="mb-3">
+        <label for="itemImage" class="form-label">Item Image:</label>
         <input type="file" name="itemImage"/>
     </div>
 
