@@ -218,7 +218,7 @@ exports.item_update_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped/trimmed data and old id.
+    // Create an Item object with escaped/trimmed data and old id.
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
@@ -227,6 +227,12 @@ exports.item_update_post = [
       category: typeof req.body.category === "undefined" ? [] : req.body.category,
       _id: req.params.id, // This is required, or a new ID will be assigned!
     });
+
+    if (req.file) {
+      console.log("Nueva foto:", req.file);
+      // If a new photo was uploaded, set it in the 'item' object
+      item.image = req.file.filename; // Supposing you store the image as a buffer
+    }
 
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/error messages.
