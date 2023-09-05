@@ -4,6 +4,10 @@ body {
   position: relative;
 }
 
+ul {
+  list-style: none;
+}
+
 #bg {
   position: fixed;
   inset: 0;
@@ -25,4 +29,27 @@ body {
 
 a {
   color: #00b7ff;
+}
+
+.sidebar a {
+  color: #000;
+}
+
+.image-item {
+  max-height: 150px;
+}
+
+/* list items */
+.my-flex-ul {
+  display: flex;
+  gap: 1rem;
+}
+
+.my-flex-ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 1rem;
 }

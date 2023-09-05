@@ -1,7 +1,10 @@
-<ul>
+<ul class="my-flex-ul">
     <% if (item_list.length > 0) { %>
       <% item_list.forEach(function(item) { %>
         <li>
+          <% if (item && item.image) { %>
+            <img class="image-item mb-3" src="/uploads/<%= item.image %>" alt="Item Image" />
+          <% } %>
           <a href="<%= item.url %>"><%= item.name %></a>
           <%= item.category[0].name %>
           <p>Stock: (<%= item.stock %>)</p>

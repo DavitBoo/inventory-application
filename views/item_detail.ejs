@@ -1,7 +1,7 @@
 <h1>Title: <%= item.name %></h1>
 
 <% if (item && item.image) { %>
-  <img src="/uploads/<%= item.image %>" alt="Item Image" />
+  <img class="image-item" src="/uploads/<%= item.image %>" alt="Item Image" />
 <% } %>
 
 <p><strong>Category:</strong>
@@ -12,6 +12,6 @@
 
 
 <hr>
-<p><a href="<%= item.url %>/delete">Delete</a></p>
+<p><a href="<%= item.url %>/delete" class="btn btn-danger">Delete</a></p>
 
-<p><a href="<%= item.url %>/update">Edit</a></p>
+<p><a href="<%= item.url %>/update" class="btn btn-primary">Edit</a></p>

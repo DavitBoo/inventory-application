@@ -20,7 +20,7 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 // Display list of all items. --------------------------------------------------
 exports.item_list = asyncHandler(async (req, res, next) => {
-  const allItems = await Item.find({}, "name category stock").sort({ title: 1 }).populate("category").exec();
+  const allItems = await Item.find({}, "name category stock image").sort({ title: 1 }).populate("category").exec();
 
   res.render("layout", {
     contentFile: "item_list",
