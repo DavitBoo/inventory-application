@@ -10,12 +10,36 @@
               </li>
             <% }); %>
           <% } else { %>
-            <p>Do you really want to delete this Category?</p>
-            <form method="POST">
-                <input id="categoryid" type="hidden" name="categoryid" required value="<%= category._id %>">
-                <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
+            <div class="row">
+              <div class="col">
+                <p>Do you really want to delete this Category?</p>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#passwordModal">Delete</button>
+              </div>
+            </div>
+
           <% } %>
         </ul>
 </div>
 
+
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordModalLabel">Enter Password to Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          <input id="categoryid" type="hidden" name="categoryid" required value="<%= category._id %>">
+          <label for="password">Password:</label>
+          <input id="password" type="password" name="password" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

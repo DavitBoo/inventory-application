@@ -4,6 +4,10 @@ const Item = require("../models/item");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+require("dotenv").config();
+
+const myPass = process.env.MYPASS;
+
 // Display list of all Genre.
 exports.category_list = asyncHandler(async (req, res, next) => {
   const allCategories = await Category.find().sort({ name: 1 }).exec();
@@ -57,6 +61,10 @@ exports.category_delete_get = asyncHandler(async (req, res, next) => {
 
 // Handle Category delete on POST.
 exports.category_delete_post = asyncHandler(async (req, res, next) => {
+  if (req.body.password !== myPass) {
+    return res.status(403).send("You have no access");
+  }
+
   // Get details of category and all their items (in parallel)
   const [category, allItemsByCategory] = await Promise.all([
     Category.findById(req.params.id).exec(),
