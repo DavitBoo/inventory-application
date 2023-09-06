@@ -8,8 +8,8 @@
             <img class="image-item mb-3" src="/uploads/<%= item.image %>" alt="Item Image" />
           <% } %>
           <a href="<%= item.url %>"><%= item.name %></a>
-          <%= item.category[0].name %>
-          <p><span class="<%= item.stock == 1 ? 'text-warning' : 'text-success' %>">Stock: (<%= item.stock %>)</span></p>
+          <p><%= item.category[0].name %></p>
+          <p class="<%= item.stock == 1 ? 'bg-warning' : 'bg-success' %> text-white stock">Stock: (<%= item.stock %>)</p>
         </li>
       <% }); %>
     <% } else { %>

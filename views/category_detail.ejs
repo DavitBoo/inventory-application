@@ -2,17 +2,21 @@
 <h2>Desciption: <%= category.description %></h2>
 <div>
     <h4>Items:</h4>
-    <dl>
+    <ul class="my-flex-ul">
         <% if (category_items.length > 0) { %>
             <% category_items.forEach(function(item) { %>
-              <dt>
+              <li>
+                <% if (item && item.image) { %>
+                  <img class="image-item mb-3" src="/uploads/<%= item.image %>" alt="Item Image" />
+                <% } %>
                 <a href="<%= item.url %>"><%= item.name %></a>
-              </dt>
+                <p class="<%= item.stock == 1 ? 'bg-warning' : 'bg-success' %> text-white stock">Stock: (<%= item.stock %>)</p>
+              </li>
             <% }); %>
           <% } else { %>
             <p>There are no items in this category.</p>
           <% } %>
-    </dl>
+      </ul>
 </div>
 
 <hr>

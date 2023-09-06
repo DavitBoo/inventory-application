@@ -21,7 +21,7 @@ exports.category_list = asyncHandler(async (req, res, next) => {
 exports.category_detail = asyncHandler(async (req, res, next) => {
   const [category, itemsInCategory] = await Promise.all([
     Category.findById(req.params.id).exec(),
-    Item.find({ category: req.params.id }, "name stock").exec(),
+    Item.find({ category: req.params.id }, "name stock image").exec(),
   ]);
 
   if (category === null) {
