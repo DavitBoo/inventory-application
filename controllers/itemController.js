@@ -164,17 +164,16 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
     return res.status(403).send("You have no access");
   }
 
-  // Get details of books
+  // Get details of items
   const item = await Item.findById(req.params.id).exec();
 
-  // Book has no bookInstances. Delete object and redirect to the list of authors.
   await Item.findByIdAndRemove(req.body.itemid);
   res.redirect("/inventory/items");
 });
 
-// Display book update form on GET.
+// Display item update form on GET.
 exports.item_update_get = asyncHandler(async (req, res, next) => {
-  // Get book, authors and genres for form.
+  // Get item, authors and genres for form.
   const [item, allCategories] = await Promise.all([
     Item.findById(req.params.id).populate("category").exec(),
     Category.find().exec(),
@@ -223,6 +222,10 @@ exports.item_update_post = [
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
+    if (req.body.password !== myPass) {
+      return res.status(403).send("You have no access");
+    }
+
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 

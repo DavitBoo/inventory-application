@@ -38,6 +38,13 @@
         <input type="file" name="itemImage"/>
     </div>
 
+    <% if (null!==item) { %>
+        <div class='form-group'>
+            <label for="password">Password:</label>
+            <input id="password" type="password" name="password" required>
+        </div>
+    <% } %>
+
       <button class="btn btn-primary" type="submit">Submit</button>
 
 </form>

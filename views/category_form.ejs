@@ -7,6 +7,12 @@
         <label for='description'>Description:</label>
         <textArea id='description' class='' placeholder='Introduce a category descritpion...' name='description' required='true'><%= (null===category ? '' : category.description) %></textArea>
     </div>
+    <% if (null!==category) { %>
+    <div class='form-group'>
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password" required>
+    </div>
+    <% } %>
     <button class='btn btn-primary' type='submit'>Submit</button>
 </form>
 

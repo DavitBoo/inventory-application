@@ -110,7 +110,7 @@ exports.category_create_post = [
     // Create a category object with escaped and trimmed data, based on the model.
     const category = new Category({
       name: req.body.name,
-      description: req.body.description, // Agregar esta línea
+      description: req.body.description,
     });
     // description: req.body.description;
 
@@ -125,23 +125,23 @@ exports.category_create_post = [
       return;
     } else {
       // Data from form is valid.
-      // Check if Genre with same name already exists.
+      // Check if Category with same name already exists.
       const categoryExists = await Category.findOne({ name: req.body.name }).exec();
       if (categoryExists) {
-        // Genre exists, redirect to its detail page.
+        // Category exists, redirect to its detail page.
         res.redirect(categoryExists.url);
       } else {
         await category.save();
-        // New genre saved. Redirect to genre detail page.
+        // New category saved. Redirect to caetegory detail page.
         res.redirect(category.url);
       }
     }
   }),
 ];
 
-// Display Genre update form on GET.
+// Display Category update form on GET.
 exports.category_update_get = asyncHandler(async (req, res, next) => {
-  // Get genre.
+  // Get Category.
   const category = await Category.findById(req.params.id).exec();
 
   if (category === null) {
@@ -166,6 +166,10 @@ exports.category_update_post = [
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
+    if (req.body.password !== myPass) {
+      return res.status(403).send("You have no access");
+    }
+
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
