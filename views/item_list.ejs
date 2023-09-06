@@ -1,3 +1,5 @@
+<h1><%= title %></h1>
+
 <ul class="my-flex-ul">
     <% if (item_list.length > 0) { %>
       <% item_list.forEach(function(item) { %>
@@ -7,7 +9,7 @@
           <% } %>
           <a href="<%= item.url %>"><%= item.name %></a>
           <%= item.category[0].name %>
-          <p>Stock: (<%= item.stock %>)</p>
+          <p><span class="<%= item.stock == 1 ? 'text-warning' : 'text-success' %>">Stock: (<%= item.stock %>)</span></p>
         </li>
       <% }); %>
     <% } else { %>
