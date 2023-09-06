@@ -4,6 +4,10 @@ const Item = require("../models/item");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+require("dotenv").config();
+
+const myPass = process.env.MYPASS;
+
 exports.index = asyncHandler(async (req, res, next) => {
   const [numItems, numCategories] = await Promise.all([
     Item.countDocuments({}).exec(),
@@ -156,6 +160,10 @@ exports.item_delete_get = asyncHandler(async (req, res, next) => {
 
 // Handle item delete on POST.
 exports.item_delete_post = asyncHandler(async (req, res, next) => {
+  if (req.body.password !== myPass) {
+    return res.status(403).send("You have no access");
+  }
+
   // Get details of books
   const item = await Item.findById(req.params.id).exec();
 
