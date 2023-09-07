@@ -1,4 +1,10 @@
 # My Stock Controll App for my Luthier material
 
-Using Node, Express, ejs, MongoDB.
-I could track all these thing just with a nice sheet, but the aim of this project is to practice Express.
+This is a CRUD App built with Node.js using Mongo DB, Express.js, EJS and Bootstrap.
+👉 Live demo will be here soon
+
+## The aim of the project
+
+Basicaly to practice with **Express.js**, **MongoDB** and templating languages like **EJS** or Pug.
+I personaly used **EJS** because the writting is more similar to HTML, I also did a tutorial using Pug before so I wanted to try something different.
+For the styles I am using **Bootstrap 5**, since in the company I am working right now is what we use, so it was a nice chance to explore some features by myself
