@@ -33,9 +33,9 @@ exports.item_list = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Display detail page for a specific book.
+// Display detail page for a specific item.
 exports.item_detail = asyncHandler(async (req, res, next) => {
-  // Get details of books, book instances for specific book
+  // Get details of items, item instances for specific item
   const item = await Item.findById(req.params.id).populate("category").exec();
 
   if (item === null) {
@@ -141,9 +141,9 @@ exports.item_create_post = [
   }),
 ];
 
-// Display book delete form on GET.
+// Display item delete form on GET.
 exports.item_delete_get = asyncHandler(async (req, res, next) => {
-  // Get details of the book
+  // Get details of the item
   const item = await Item.findById(req.params.id).exec();
 
   if (item === null) {
@@ -173,7 +173,7 @@ exports.item_delete_post = asyncHandler(async (req, res, next) => {
 
 // Display item update form on GET.
 exports.item_update_get = asyncHandler(async (req, res, next) => {
-  // Get item, authors and genres for form.
+  // Get item, authors and categories for form.
   const [item, allCategories] = await Promise.all([
     Item.findById(req.params.id).populate("category").exec(),
     Category.find().exec(),
@@ -262,7 +262,7 @@ exports.item_update_post = [
     } else {
       // Data from form is valid. Update the record.
       const updatedItem = await Item.findByIdAndUpdate(req.params.id, item, {});
-      // Redirect to book detail page.
+      // Redirect to item detail page.
       res.redirect(updatedItem.url);
     }
   }),

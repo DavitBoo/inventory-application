@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const myPass = process.env.MYPASS;
 
-// Display list of all Genre.
+// Display list of all Category.
 exports.category_list = asyncHandler(async (req, res, next) => {
   const allCategories = await Category.find().sort({ name: 1 }).exec();
   res.render("layout", {
@@ -39,7 +39,7 @@ exports.category_detail = asyncHandler(async (req, res, next) => {
   });
 });
 
-// Display Genre delete form on GET.
+// Display Category delete form on GET.
 exports.category_delete_get = asyncHandler(async (req, res, next) => {
   // Get details of category and all their items (in parallel)
   const [category, allItemsByCategory] = await Promise.all([
@@ -81,7 +81,7 @@ exports.category_delete_post = asyncHandler(async (req, res, next) => {
     });
     return;
   } else {
-    // Genre has no books. Delete object and redirect to the list of authors.
+    // Category has no items. Delete object and redirect to the list of authors.
     await Category.findByIdAndRemove(req.body.categoryid);
     res.redirect("/inventory/categories");
   }
@@ -96,7 +96,7 @@ exports.category_create_get = (req, res, next) => {
   });
 };
 
-// Handle Genre create on POST.
+// Handle Category create on POST.
 exports.category_create_post = [
   // Validate and sanitize the name field.
   body("name", "Category name must contain at least 3 characters").trim().isLength({ min: 3 }).escape(),
@@ -193,7 +193,7 @@ exports.category_update_post = [
     } else {
       // Data from form is valid. Update the record.
       const updatedCategory = await Category.findByIdAndUpdate(req.params.id, category, {});
-      // Redirect to book detail page.
+      // Redirect to item detail page.
       res.redirect(updatedCategory.url);
     }
   }),
