@@ -6,6 +6,6 @@ This is a CRUD App built with Node.js using Mongo DB, Express.js, EJS and Bootst
 
 ## The aim of the project
 
-Basicaly to practice with **Express.js**, **MongoDB** and templating languages like **EJS** or Pug.
-I personaly used **EJS** because the writting is more similar to HTML, I also did a tutorial using Pug before so I wanted to try something different.
-For the styles I am using **Bootstrap 5**, since in the company I am working right now is what we use, so it was a nice chance to explore some features by myself
+The primary goal of this project is to gain hands-on experience with **Express.js**, **MongoDB** and templating languages like **EJS** or Pug.
+I personaly chose to use **EJS** because its syntax is more similar to HTML. I previously completed a tutorial using Pug, so I wanted to try something different this time.
+For styling, I opted to utilize **Bootstrap 5**. This choice aligns with the tools we use in my current workplace, providing me with an opportunity to explore its features independently.
