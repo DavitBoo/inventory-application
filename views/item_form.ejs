@@ -30,7 +30,7 @@
                         <% } %>  
                         <% for (let i = 0; i < categories.length; i++) { %>
                             <% let cat = categories[i]; %>
-                            <option value="<%= cat._id %>" <%= (item && cat._id.toString() === item.category[0]._id.toString()) ? 'selected' : '' %>" >
+                            <option value="<%= cat._id %>" <%= (item && cat._id.toString() === item.category[0]._id.toString()) ? 'selected' : '' %> >
                                 <%= cat.name %>
                             </option>
                         <% } %>
