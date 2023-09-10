@@ -2,7 +2,7 @@
 
 This is a CRUD App built with Node.js using Mongo DB, Express.js, EJS and Bootstrap.
 
-👉 Live demo will be here soon
+👉 <a href="https://inventory-5huj.onrender.com/" target="_blank">Live demo</a>
 
 ## The aim of the project
 
